@@ -7,27 +7,29 @@
 #    http://shiny.rstudio.com/
 #
 
-library(shiny)
+
+library("shiny")
+library("bslib")
 
 # Define UI for application that draws a histogram
-fluidPage(
+shinyUI(fluidPage(
+  
+  
+  theme = bs_theme(version = 5, bootswatch = "cerulean"),
 
-    # Application title
-    titlePanel("Old Faithful Geyser Data"),
+  
+  navbarPage(collapsible = TRUE,
+             HTML('<a style="text-decoration:none;cursor:default;color:#9cff9c;" class="active" href="#">Shiny Boardgames</a>'), id="nav",
+             windowTitle = "Mechanics",
+             
+             tabPanel("Mechanics",
 
-    # Sidebar with a slider input for number of bins
-    sidebarLayout(
-        sidebarPanel(
-            sliderInput("bins",
-                        "Number of bins:",
-                        min = 1,
-                        max = 50,
-                        value = 30)
-        ),
-
-        # Show a plot of the generated distribution
-        mainPanel(
-            plotOutput("distPlot")
-        )
-    )
-)
+                      control_mod_ui("control_module"),
+                      
+                      mechanics_mod_ui("mechanics_module")
+                          
+                      )
+                      
+             )
+  )
+)  
