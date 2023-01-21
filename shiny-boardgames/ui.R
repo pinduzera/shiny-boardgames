@@ -38,7 +38,9 @@ shinyUI(fluidPage(
                       sidebarPanel(
                       mechanics_mod_ui("mechanics_module"),
                       width = 12
-                      )  
+                      
+                      ),
+                      br()
                       )
                       
              )

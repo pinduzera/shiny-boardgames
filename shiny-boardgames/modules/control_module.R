@@ -21,19 +21,35 @@ control_mod_ui <- function(id) {
   
   
                 fluidRow(
+                  
+                  
+                  
+                  radioGroupButtons(
+                    inputId = ns("rank_name"),
+                    label = "",
+                    selected = "Board Game Rank",
+                    choiceNames = gsub(" Rank", "", rank_count$rank_name),
+                    choiceValues = rank_count$rank_name,
+                    justified = TRUE,
+                    width = "100%"
+                  ),
+                  
+                  
                 textInput(ns("minSlider"), "Rank Min",value = 1, width = "100px"),
-                textInput(ns("maxSlider"), "Rank Max",value = 100, width = "100px"),
+                textInput(ns("maxSlider"), "Rank Max",value = 50, width = "100px"),
                 
                 selectizeInput(ns("mechanic_selector"),
                                label = "Ignored Mechanics",
                                choices = NULL, ## see updateSelectizeInput server
                                multiple = TRUE,
                                options = list(placeholder = 'None')
-                )),
+                )
+                
+                ),
                 sliderInput(ns("rank_range"), 
                             label = "Rank Range:",
                             min = 1, max = nrow(gameList),
-                            value = c(1,100),
+                            value = c(1,50),
                             step = 1,
                             animate =  animationOptions(interval = 1000, loop = T),
                             width = '100%'
@@ -52,15 +68,23 @@ control_mod_server <- function(id){
     
     function(input, output, session) {
   
-      observeEvent(input$minSlider, {
+      toListen <- reactive({
+        list(input$minSlider, input$maxSlider)
+      })
+      
+      observeEvent(toListen(), {
         updateSliderInput(session, "rank_range", value = c(input$minSlider, input$maxSlider))
       })
-      observeEvent(input$maxSlider, {
-        updateSliderInput(session, "rank_range", value =  c(input$minSlider, input$maxSlider))
-      })
+
       observeEvent(input$rank_range, {
         updateTextInput(session, "minSlider", value =  input$rank_range[1])
         updateTextInput(session, "maxSlider", value =  input$rank_range[2])
+      })
+      
+      observeEvent(input$rank_name, {
+        updateSliderInput(session, "rank_range", max = 
+                            rank_count[rank_name == input$rank_name ,N])
+        updateSliderInput(session, "rank_range", value = c(1, 50))
       })
       
       updateSelectizeInput(session, 
@@ -71,7 +95,8 @@ control_mod_server <- function(id){
       
       return(
         list(rank_range = reactive(input$rank_range),
-             mechanic_selector = reactive(input$mechanic_selector))
+             mechanic_selector = reactive(input$mechanic_selector),
+             rank_name = reactive(input$rank_name))
       )
     }
     

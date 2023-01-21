@@ -1,6 +1,5 @@
 library("data.table")
 
-
 modules <- list.files("./modules/", full.names = TRUE)
 
 for (mod in modules){
@@ -11,11 +10,19 @@ for (mod in modules){
 # 
 # mechanics <- gameList[, rbindlist(boardgamemechanic), by = .(id, name)]
 
-gameList <- fread("./data/bgg_data_ranked.csv")
+gameList <- fread("data/bgg_data_ranked.csv")
 gameList[, id := as.numeric(id)]
 
-mechanics <- fread("./data/boardgamemechanic_ranked.csv")
+mechanics <- fread("data/boardgamemechanic_ranked.csv")
 mechanics[, id := as.numeric(id)]
 
-mechanics <- mechanics[gameList[,.(id, bgg_rank, name)], on = "id" ]
+ranks <- fread("data/ranks.csv")
+ranks[,  c("id", "rank") := list(as.numeric(id), as.numeric(rank)), .SDcols =]
+rank_count <- ranks[ , .N, by = rank_name]
+rank_count <- rank_count[N > 100, ]
+ranks <- ranks[rank_name %in% rank_count$rank_name, , ]
+
+mechanics <- mechanics[gameList[,.(id, name)], on = "id" ]
+mechanics <- mechanics[ranks[,.(id, rank_name, rank)], on = "id", allow.cartesian=TRUE]
+
 

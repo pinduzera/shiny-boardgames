@@ -8,6 +8,7 @@
 #
 
 library("shiny")
+library("shinyWidgets")
 source("global.R")
 
 # Define server logic required to draw a histogram

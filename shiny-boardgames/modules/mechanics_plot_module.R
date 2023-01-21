@@ -9,7 +9,7 @@ fontbold <- function(x) paste0("<b>", x, "<b>")
 mechanics_mod_ui <- function(id) {
   ns <- NS(id)
   
-  plotlyOutput(ns("mecPlot"), height = "70vh") #, height = "94vh"
+  plotlyOutput(ns("mecPlot"), height = "60vh") #, height = "94vh"
   
 }
 
@@ -29,9 +29,10 @@ mechanics_mod_server <- function(id, filters) {
 
         n_games <- filters$rank_range()[2] - filters$rank_range()[1] + 1
         
-        summary <- mechanics[bgg_rank >= filters$rank_range()[1] &
-                             bgg_rank <= filters$rank_range()[2] &
-                             !(mechanic_name %in% filters$mechanic_selector()), 
+        summary <- mechanics[rank >= filters$rank_range()[1] &
+                             rank <= filters$rank_range()[2] &
+                             !(mechanic_name %in% filters$mechanic_selector()) &
+                               rank_name == filters$rank_name(), 
                                           list(N = .N, 
                                                perc = round((.N/n_games)*100, 2),
                                                GameSamples = lapply(na.omit(.SD[1:3]), paste0, collapse="<br>            ")), 
