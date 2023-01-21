@@ -53,7 +53,7 @@ mechanics_mod_server <- function(id, filters) {
                                     y = ~mechanic_name, x = ~perc,
                                     color = I("#ff5100"),
                                     type = "bar", orientation = 'h',
-                                    text = ~paste0(fontbold("Mechanic: "), mechanic_name, "<br>",
+                                    hovertext = ~paste0(fontbold("Mechanic: "), mechanic_name, "<br>",
                                                    fontbold("# Games: "), N, "<br>",
                                                    fontbold("% Games: "), scales::percent(perc, scale = 1), "<br>",
                                                    fontbold("Top 3: "), GameSamples),
@@ -63,7 +63,8 @@ mechanics_mod_server <- function(id, filters) {
                                                                standoff = 0L)),
                                      title = fontbold(paste0("Game Rank: ", 
                                                              filters$rank_range()[1], " - ",
-                                                             filters$rank_range()[2])),
+                                                             filters$rank_range()[2], " (",
+                                                             n_games, ")")),
                                      xaxis = list(title = fontbold("Percentage"),
                                                   ticksuffix = "%",
                                                   gridcolor = 'grey'
