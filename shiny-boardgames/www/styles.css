@@ -1,0 +1,12 @@
+.irs-grid-pol {
+  background: red;
+  border-color: red;
+}
+
+.irs--modern .irs-grid-text {
+  color: grey;
+}
+
+.irs--modern .irs-min, .irs--modern .irs-max  {
+  color: grey;
+}

@@ -17,5 +17,5 @@ gameList[, id := as.numeric(id)]
 mechanics <- fread("./data/boardgamemechanic_ranked.csv")
 mechanics[, id := as.numeric(id)]
 
-mechanics <- mechanics[gameList[,.(id, bgg_rank)], on = "id" ]
+mechanics <- mechanics[gameList[,.(id, bgg_rank, name)], on = "id" ]
 

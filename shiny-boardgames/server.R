@@ -16,6 +16,6 @@ function(input, output, session) {
   filters <- control_mod_server("control_module")
   
             mechanics_mod_server("mechanics_module",
-                    rank_range = filters$rank_range)
+                    filters = filters)
 
 }

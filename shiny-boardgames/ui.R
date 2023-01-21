@@ -9,25 +9,36 @@
 
 
 library("shiny")
+library("shinyWidgets")
 library("bslib")
+
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
   
+  includeCSS("www/styles.css"),
   
-  theme = bs_theme(version = 5, bootswatch = "cerulean"),
+  theme = bs_theme(version = 5, bootswatch = "cerulean", 
+                   fg = "black",
+                   bg = "#ecedee",
+                   primary = "#3f3a60"),
 
   
   navbarPage(collapsible = TRUE,
-             HTML('<a style="text-decoration:none;cursor:default;color:#9cff9c;" class="active" href="#">Shiny Boardgames</a>'), id="nav",
+             HTML('<a style="text-decoration:none;cursor:default;color:#ff5100;" class="active" href="#">Shiny Boardgames</a>'), id="nav",
              windowTitle = "Mechanics",
              
              tabPanel("Mechanics",
-
-                      control_mod_ui("control_module"),
                       
-                      mechanics_mod_ui("mechanics_module")
-                          
+                      sidebarPanel(
+                        control_mod_ui("control_module"),
+                        width = 12
+                      ),
+                      br(),
+                      sidebarPanel(
+                      mechanics_mod_ui("mechanics_module"),
+                      width = 12
+                      )  
                       )
                       
              )
