@@ -16,7 +16,8 @@ RUN apt-get update && apt-get install -y dos2unix
 # install R packages required 
 # (change it dependeing on the packages you need)
 
-RUN R -e "install.packages(c('shiny', 'lubridate', 'plotly', \
+RUN R -e "install.packages(c('shiny','shinyWidgets', \
+          'data.table', 'lubridate', 'plotly', \
           'bslib' ))"
 
 COPY shiny-server.sh /usr/bin/shiny-server.sh

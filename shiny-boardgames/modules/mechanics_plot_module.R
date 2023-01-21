@@ -35,13 +35,15 @@ mechanics_mod_server <- function(id, filters) {
                                rank_name == filters$rank_name(), 
                                           list(N = .N, 
                                                perc = round((.N/n_games)*100, 2),
-                                               GameSamples = lapply(na.omit(.SD[1:3]), paste0, collapse="<br>            ")), 
+                                               GameSamples = lapply(na.omit(.SD[1:3]), 
+                                                                    paste0, 
+                                                                    collapse="<br>            ")), 
                                           by = mechanic_name,
                                           .SDcols = "name"]
                      
         summary <- summary[order(N, decreasing = T),]
                      
-        base_cut <- summary[20, ]$N ## about 20 mechanics
+        base_cut <- summary[min(20, nrow(summary)), ]$N ## about 20 mechanics
                      
         summary <- summary[order(N, decreasing = T) & N >= base_cut,]                   
         
