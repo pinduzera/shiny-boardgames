@@ -18,5 +18,7 @@ function(input, output, session) {
   
             mechanics_mod_server("mechanics_module",
                     filters = filters)
+            
+            designer_mod_server("designer_module")
 
 }

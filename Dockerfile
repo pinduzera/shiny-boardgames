@@ -20,6 +20,8 @@ RUN R -e "install.packages(c('shiny','shinyWidgets', \
           'data.table', 'lubridate', 'plotly', \
           'bslib' ))"
 
+RUN R -e "install.packages(c('DT'))"
+
 COPY shiny-server.sh /usr/bin/shiny-server.sh
 COPY shiny-server.conf /etc/shiny-server/shiny-server.conf
 

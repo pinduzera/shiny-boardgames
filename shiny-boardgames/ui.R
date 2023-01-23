@@ -41,7 +41,10 @@ shinyUI(fluidPage(
                       
                       ),
                       br()
-                      )
+                      ),
+             
+                        designer_mod_ui("designer_module")
+                      
                       
              )
   )
