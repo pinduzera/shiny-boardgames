@@ -6,9 +6,10 @@ for (mod in modules){
     source(mod)
 }
 
-# gameList <- readRDS("shiny-boardgames/data/bgg_data.Rdata")
-# 
-# mechanics <- gameList[, rbindlist(boardgamemechanic), by = .(id, name)]
+
+###############################################################
+###############################################################
+###############################################################
 
 ### all games
 gameList <- fread("data/bgg_data_ranked.csv")
